@@ -14,7 +14,7 @@
         android:layout_width="203dp"
         android:layout_height="190dp"
         android:layout_gravity="center"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="-20dp"
         android:baselineAligned="false"
         android:src="@drawable/user"
         app:civ_border_color="@color/colorPrimary"
