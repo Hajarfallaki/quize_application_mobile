@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,7 +39,12 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation("de.hdodenhof:circleimageview:3.1.0") // Corrected this line for the dependency
+    implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }

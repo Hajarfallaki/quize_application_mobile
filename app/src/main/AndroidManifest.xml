@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.quize_app">  <!-- ← Ajout de l'attribut package obligatoire -->
 
     <application
         android:allowBackup="true"
@@ -30,8 +31,7 @@
         <activity android:name=".Quize4" />
         <activity android:name=".Quize5" />
         <activity android:name=".Score" />
-
-
+        <activity android:name=".RegisterActivity" />
 
     </application>
 

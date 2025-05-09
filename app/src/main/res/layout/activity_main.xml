@@ -10,12 +10,16 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
+    <!-- Espace pour pousser le contenu vers le bas -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
     <!-- Image de profil circulaire -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="203dp"
         android:layout_height="190dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:baselineAligned="false"
         android:src="@drawable/imag1"
         app:civ_border_color="@color/colorPrimary"
@@ -33,12 +37,10 @@
         android:drawableTint="@color/colorPrimary"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:hint="Email"
+        android:hint=" Email"
         android:importantForAccessibility="yes"
         android:inputType="textEmailAddress"
         android:textStyle="bold" />
-
-
 
     <!-- Champ Mot de passe -->
     <EditText
