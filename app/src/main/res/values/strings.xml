@@ -3,4 +3,9 @@
     <string name="email" translatable="false">Email</string>
 
     <string name="hcl" translatable="false">HCl</string>
+    <!-- res/values/strings.xml -->
+    <string name="joueurs_list_description">Liste des joueurs avec leurs scores</string>
+    <string name="liste_des_joueurs">Liste des Joueurs</string>
+
+
 </resources>

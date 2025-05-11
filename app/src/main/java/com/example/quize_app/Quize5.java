@@ -18,9 +18,11 @@ public class Quize5 extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb;
     private TextView timerText;
+    private TextView playerNameText;
 
     private int score;
     private final String correctAnswer = "H2O";
+    private String playerName = "";
 
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis = 30000; // 30 secondes
@@ -31,12 +33,22 @@ public class Quize5 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_quize5);
 
+        // Récupération des données
         score = getIntent().getIntExtra("score", 0);
+        playerName = getIntent().getStringExtra("player_name");
 
+        // Initialisation des composants
         bNext = findViewById(R.id.next_button);
         rg = findViewById(R.id.options_group);
         timerText = findViewById(R.id.timer_text);
+        playerNameText = findViewById(R.id.player_name_text); // Doit exister dans activity_quize5.xml
 
+        // Affichage du nom du joueur
+        if (playerName != null && !playerName.isEmpty()) {
+            playerNameText.setText("Joueur : " + playerName);
+        }
+
+        // Démarrage du chronomètre
         startTimer();
 
         bNext.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +69,10 @@ public class Quize5 extends AppCompatActivity {
                         countDownTimer.cancel();
                     }
 
+                    // Passer à la page Score
                     Intent intent = new Intent(Quize5.this, Score.class);
                     intent.putExtra("score", score);
+                    intent.putExtra("player_name", playerName);
                     startActivity(intent);
                     finish();
                 }
@@ -79,8 +93,10 @@ public class Quize5 extends AppCompatActivity {
                 timerText.setText("Temps écoulé !");
                 Toast.makeText(Quize5.this, "Temps écoulé !", Toast.LENGTH_SHORT).show();
 
+                // Passer automatiquement à Score
                 Intent intent = new Intent(Quize5.this, Score.class);
                 intent.putExtra("score", score);
+                intent.putExtra("player_name", playerName);
                 startActivity(intent);
                 finish();
             }

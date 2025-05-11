@@ -3,30 +3,30 @@ package com.example.quize_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Quize2 extends AppCompatActivity {
 
-    // Déclaration des composants
     private Button bNext;
     private RadioGroup rg;
     private RadioButton rb;
     private TextView timerText;
+    private TextView playerNameText;
 
-    // Score actuel et bonne réponse
     private int score;
     private final String correctAnswer = "Canberra";
 
-    // Chronomètre
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis = 30000; // 30 secondes
+
+    private String playerName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,48 +34,50 @@ public class Quize2 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_quize2);
 
-        // Récupération du score depuis l'activité précédente
-        score = getIntent().getIntExtra("score", 0);
-
-        // Initialisation des composants graphiques
+        // Initialisation des vues
         bNext = findViewById(R.id.next_button);
         rg = findViewById(R.id.options_group);
-        timerText = findViewById(R.id.timer_text); // TextView pour afficher le temps
+        timerText = findViewById(R.id.timer_text);
+        playerNameText = findViewById(R.id.player_name_text);
 
-        // Lancement du chronomètre
+        // Récupérer les données de l'activité précédente
+        score = getIntent().getIntExtra("score", 0);
+        playerName = getIntent().getStringExtra("player_name"); // ✅ même clé
+
+        // Afficher le nom du joueur
+        if (playerName != null && !playerName.isEmpty()) {
+            playerNameText.setText("Joueur : " + playerName);
+        }
+
+        // Démarrer le compte à rebours
         startTimer();
 
-        // Gestion du clic sur "Suivant"
-        bNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rg.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(),
-                            "Vous devez choisir une réponse", Toast.LENGTH_SHORT).show();
-                } else {
-                    rb = findViewById(rg.getCheckedRadioButtonId());
-                    String selectedText = rb.getText().toString().trim();
+        // Gérer le clic sur le bouton "Suivant"
+        bNext.setOnClickListener(v -> {
+            if (rg.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(),
+                        "Vous devez choisir une réponse", Toast.LENGTH_SHORT).show();
+            } else {
+                rb = findViewById(rg.getCheckedRadioButtonId());
+                String selectedText = rb.getText().toString().trim();
 
-                    if (selectedText.equalsIgnoreCase(correctAnswer)) {
-                        score++;
-                    }
-
-                    // Arrêt du chronomètre si l'utilisateur a répondu
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
-
-                    // Passer à l'activité suivante
-                    Intent intent = new Intent(Quize2.this, Quize3.class);
-                    intent.putExtra("score", score);
-                    startActivity(intent);
-                    finish();
+                if (selectedText.equalsIgnoreCase(correctAnswer)) {
+                    score++;
                 }
+
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
+
+                Intent intent = new Intent(Quize2.this, Quize3.class);
+                intent.putExtra("score", score);
+                intent.putExtra("player_name", playerName); // ✅ même clé
+                startActivity(intent);
+                finish();
             }
         });
     }
 
-    // Méthode pour lancer le chronomètre
     private void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
@@ -90,9 +92,9 @@ public class Quize2 extends AppCompatActivity {
                 timerText.setText("Temps écoulé !");
                 Toast.makeText(Quize2.this, "Temps écoulé !", Toast.LENGTH_SHORT).show();
 
-                // Passer automatiquement à la prochaine question
                 Intent intent = new Intent(Quize2.this, Quize3.class);
                 intent.putExtra("score", score);
+                intent.putExtra("player_name", playerName); // ✅ même clé
                 startActivity(intent);
                 finish();
             }

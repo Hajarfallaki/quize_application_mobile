@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:background="@android:color/transparent">
+
+    <!-- Nom du joueur -->
+    <TextView
+        android:id="@+id/nom_joueur"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nom Joueur"
+        android:textSize="18sp"
+        android:textColor="#000000" />
+
+    <!-- Score du joueur -->
+    <TextView
+        android:id="@+id/score_joueur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="123"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <!-- Bouton de suppression -->
+    <Button
+        android:id="@+id/btn_supprimer"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_delete"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#00000000"
+        android:drawablePadding="8dp" />
+
+
+</LinearLayout>
