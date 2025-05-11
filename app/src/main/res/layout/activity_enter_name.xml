@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="top|center_horizontal"
+    android:background="@drawable/back_registre"
+    android:padding="16dp">
+
+
+    <!-- Espace pour déplacer le contenu vers le bas -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <!-- Image de profil circulaire -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="203dp"
+        android:layout_height="190dp"
+        android:layout_gravity="center"
+        android:baselineAligned="false"
+        android:src="@drawable/player2"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="5dp"
+        tools:ignore="MissingClass" />
+
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="joueur"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"/>
+
+    <!-- Champ de saisie du nom -->
+    <EditText
+        android:id="@+id/player_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="Votre nom"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Bouton pour commencer -->
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#70989E"
+        android:text="Play"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:padding="12dp" />
+
+</LinearLayout>

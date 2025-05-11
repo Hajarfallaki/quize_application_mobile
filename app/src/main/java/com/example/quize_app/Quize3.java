@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,10 +20,12 @@ public class Quize3 extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb;
     private TextView timerText;
+    private TextView playerNameText; // ✅ Ajout du champ pour afficher le nom
 
     // Données
     private int score;
     private final String correctAnswer = "Léonard de Vinci";
+    private String playerName = "";
 
     // Chronomètre
     private CountDownTimer countDownTimer;
@@ -34,42 +37,47 @@ public class Quize3 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_quize3);
 
-        // Récupérer le score de l'activité précédente
-        score = getIntent().getIntExtra("score", 0);
-
         // Initialisation des vues
         bNext = findViewById(R.id.next_button);
         rg = findViewById(R.id.options_group);
-        timerText = findViewById(R.id.timer_text); // Assure-toi d'avoir ce TextView dans ton layout XML
+        timerText = findViewById(R.id.timer_text);
+        playerNameText = findViewById(R.id.player_name_text); // Assure-toi d’avoir ce TextView dans le layout XML
+
+        // Récupérer les données de l'activité précédente
+        score = getIntent().getIntExtra("score", 0);
+        playerName = getIntent().getStringExtra("player_name");
+
+        // Affichage du nom
+        if (playerName != null && !playerName.isEmpty()) {
+            playerNameText.setText("Joueur : " + playerName);
+        }
 
         // Lancement du chronomètre
         startTimer();
 
         // Gestion du bouton Suivant
-        bNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rg.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(),
-                            "Vous devez choisir une réponse", Toast.LENGTH_SHORT).show();
-                } else {
-                    rb = findViewById(rg.getCheckedRadioButtonId());
-                    String selectedText = rb.getText().toString().trim();
+        bNext.setOnClickListener(v -> {
+            if (rg.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(),
+                        "Vous devez choisir une réponse", Toast.LENGTH_SHORT).show();
+            } else {
+                rb = findViewById(rg.getCheckedRadioButtonId());
+                String selectedText = rb.getText().toString().trim();
 
-                    if (selectedText.equalsIgnoreCase(correctAnswer)) {
-                        score++;
-                    }
-
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
-
-                    // Passer à Quize4
-                    Intent intent = new Intent(Quize3.this, Quize4.class);
-                    intent.putExtra("score", score);
-                    startActivity(intent);
-                    finish();
+                if (selectedText.equalsIgnoreCase(correctAnswer)) {
+                    score++;
                 }
+
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
+
+                // Passer à Quize4 avec score et nom
+                Intent intent = new Intent(Quize3.this, Quize4.class);
+                intent.putExtra("score", score);
+                intent.putExtra("player_name", playerName); // ✅ transmission du nom
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -88,9 +96,10 @@ public class Quize3 extends AppCompatActivity {
                 timerText.setText("Temps écoulé !");
                 Toast.makeText(Quize3.this, "Temps écoulé !", Toast.LENGTH_SHORT).show();
 
-                // Passer automatiquement à Quize4
+                // Passer automatiquement à Quize4 avec score et nom
                 Intent intent = new Intent(Quize3.this, Quize4.class);
                 intent.putExtra("score", score);
+                intent.putExtra("player_name", playerName); // ✅ transmission du nom
                 startActivity(intent);
                 finish();
             }

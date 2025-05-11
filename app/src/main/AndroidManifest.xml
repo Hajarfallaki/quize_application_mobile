@@ -32,6 +32,11 @@
         <activity android:name=".Quize5" />
         <activity android:name=".Score" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".EnterPlayerNameActivity" />
+        <activity android:name=".LeaderboardActivity" />
+        <activity android:name=".JoueursActivity" />
+
+
 
     </application>
 
